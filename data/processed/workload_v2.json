@@ -1,0 +1,554 @@
+[
+    {
+        "query_id": "Q001",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.year,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year"
+    },
+    {
+        "query_id": "Q002",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.year,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year"
+    },
+    {
+        "query_id": "Q003",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.year,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year"
+    },
+    {
+        "query_id": "Q004",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.year,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year"
+    },
+    {
+        "query_id": "Q005",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.month,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month"
+    },
+    {
+        "query_id": "Q006",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.month,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month"
+    },
+    {
+        "query_id": "Q007",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.month,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month"
+    },
+    {
+        "query_id": "Q008",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        d.month,\n        SUM(f.total_amount) AS total_sales\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month"
+    },
+    {
+        "query_id": "Q009",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q010",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q011",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q012",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q013",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.region,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.region"
+    },
+    {
+        "query_id": "Q014",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.region,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.region"
+    },
+    {
+        "query_id": "Q015",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.region,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.region"
+    },
+    {
+        "query_id": "Q016",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.region,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.region"
+    },
+    {
+        "query_id": "Q017",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.segment,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.segment"
+    },
+    {
+        "query_id": "Q018",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.segment,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.segment"
+    },
+    {
+        "query_id": "Q019",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.segment,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.segment"
+    },
+    {
+        "query_id": "Q020",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        c.segment,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    GROUP BY c.segment"
+    },
+    {
+        "query_id": "Q021",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q022",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q023",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q024",
+        "workload": "aggregation",
+        "query_type": "aggregation",
+        "sql": "SELECT\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY p.category"
+    },
+    {
+        "query_id": "Q025",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q026",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q027",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q028",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q029",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.year,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year, c.segment"
+    },
+    {
+        "query_id": "Q030",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.year,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year, c.segment"
+    },
+    {
+        "query_id": "Q031",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.year,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year, c.segment"
+    },
+    {
+        "query_id": "Q032",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.year,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.year, c.segment"
+    },
+    {
+        "query_id": "Q033",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q034",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q035",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q036",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        SUM(f.quantity) AS units\n    FROM fact_sales f\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q037",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        d.quarter,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY c.region, p.category, d.quarter"
+    },
+    {
+        "query_id": "Q038",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        d.quarter,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY c.region, p.category, d.quarter"
+    },
+    {
+        "query_id": "Q039",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        d.quarter,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY c.region, p.category, d.quarter"
+    },
+    {
+        "query_id": "Q040",
+        "workload": "join_heavy",
+        "query_type": "join",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        d.quarter,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    GROUP BY c.region, p.category, d.quarter"
+    },
+    {
+        "query_id": "Q041",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 5"
+    },
+    {
+        "query_id": "Q042",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 10"
+    },
+    {
+        "query_id": "Q043",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 25"
+    },
+    {
+        "query_id": "Q044",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 50"
+    },
+    {
+        "query_id": "Q045",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 100"
+    },
+    {
+        "query_id": "Q046",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 250"
+    },
+    {
+        "query_id": "Q047",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 500"
+    },
+    {
+        "query_id": "Q048",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 750"
+    },
+    {
+        "query_id": "Q049",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE customer_id = 900"
+    },
+    {
+        "query_id": "Q050",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 5"
+    },
+    {
+        "query_id": "Q051",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 10"
+    },
+    {
+        "query_id": "Q052",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 15"
+    },
+    {
+        "query_id": "Q053",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 20"
+    },
+    {
+        "query_id": "Q054",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 25"
+    },
+    {
+        "query_id": "Q055",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 30"
+    },
+    {
+        "query_id": "Q056",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 40"
+    },
+    {
+        "query_id": "Q057",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE product_id = 50"
+    },
+    {
+        "query_id": "Q058",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 1 AND 7"
+    },
+    {
+        "query_id": "Q059",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 1 AND 30"
+    },
+    {
+        "query_id": "Q060",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 1 AND 60"
+    },
+    {
+        "query_id": "Q061",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 100 AND 130"
+    },
+    {
+        "query_id": "Q062",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 150 AND 180"
+    },
+    {
+        "query_id": "Q063",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 200 AND 230"
+    },
+    {
+        "query_id": "Q064",
+        "workload": "selective",
+        "query_type": "selective",
+        "sql": "SELECT *\n        FROM fact_sales\n        WHERE date_id BETWEEN 300 AND 365"
+    },
+    {
+        "query_id": "Q065",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            AVG(total_amount) AS average_sale\n        FROM fact_sales\n        WHERE quantity >= 2"
+    },
+    {
+        "query_id": "Q066",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            AVG(total_amount) AS average_sale\n        FROM fact_sales\n        WHERE quantity >= 4"
+    },
+    {
+        "query_id": "Q067",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            AVG(total_amount) AS average_sale\n        FROM fact_sales\n        WHERE quantity >= 6"
+    },
+    {
+        "query_id": "Q068",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            AVG(total_amount) AS average_sale\n        FROM fact_sales\n        WHERE quantity >= 8"
+    },
+    {
+        "query_id": "Q069",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            COUNT(*) AS sales_count\n        FROM fact_sales\n        WHERE discount >= 0.05"
+    },
+    {
+        "query_id": "Q070",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            COUNT(*) AS sales_count\n        FROM fact_sales\n        WHERE discount >= 0.1"
+    },
+    {
+        "query_id": "Q071",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            COUNT(*) AS sales_count\n        FROM fact_sales\n        WHERE discount >= 0.15"
+    },
+    {
+        "query_id": "Q072",
+        "workload": "filtered_aggregation",
+        "query_type": "mixed",
+        "sql": "SELECT\n            SUM(total_amount) AS revenue,\n            COUNT(*) AS sales_count\n        FROM fact_sales\n        WHERE discount >= 0.2"
+    },
+    {
+        "query_id": "Q073",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 5\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q074",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 5\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q075",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 5\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q076",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 5\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q077",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 5\n    GROUP BY c.region, p.category"
+    },
+    {
+        "query_id": "Q078",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.quarter,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    WHERE f.discount > 0.10\n    GROUP BY d.quarter, c.segment"
+    },
+    {
+        "query_id": "Q079",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.quarter,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    WHERE f.discount > 0.10\n    GROUP BY d.quarter, c.segment"
+    },
+    {
+        "query_id": "Q080",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.quarter,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    WHERE f.discount > 0.10\n    GROUP BY d.quarter, c.segment"
+    },
+    {
+        "query_id": "Q081",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.quarter,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    WHERE f.discount > 0.10\n    GROUP BY d.quarter, c.segment"
+    },
+    {
+        "query_id": "Q082",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.quarter,\n        c.segment,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    WHERE f.discount > 0.10\n    GROUP BY d.quarter, c.segment"
+    },
+    {
+        "query_id": "Q083",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 3\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q084",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 3\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q085",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 3\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q086",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 3\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q087",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        d.month,\n        p.category,\n        AVG(f.total_amount) AS average_sale\n    FROM fact_sales f\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    WHERE f.quantity >= 3\n    GROUP BY d.month, p.category"
+    },
+    {
+        "query_id": "Q088",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        d.year,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    WHERE f.discount >= 0.10\n      AND f.quantity >= 4\n    GROUP BY c.region, d.year, p.category"
+    },
+    {
+        "query_id": "Q089",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        d.year,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    WHERE f.discount >= 0.10\n      AND f.quantity >= 4\n    GROUP BY c.region, d.year, p.category"
+    },
+    {
+        "query_id": "Q090",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        d.year,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    WHERE f.discount >= 0.10\n      AND f.quantity >= 4\n    GROUP BY c.region, d.year, p.category"
+    },
+    {
+        "query_id": "Q091",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        d.year,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    WHERE f.discount >= 0.10\n      AND f.quantity >= 4\n    GROUP BY c.region, d.year, p.category"
+    },
+    {
+        "query_id": "Q092",
+        "workload": "mixed",
+        "query_type": "mixed",
+        "sql": "SELECT\n        c.region,\n        d.year,\n        p.category,\n        SUM(f.total_amount) AS revenue\n    FROM fact_sales f\n    JOIN dim_customer c\n        ON f.customer_id = c.customer_id\n    JOIN dim_product p\n        ON f.product_id = p.product_id\n    JOIN dim_date d\n        ON f.date_id = d.date_id\n    WHERE f.discount >= 0.10\n      AND f.quantity >= 4\n    GROUP BY c.region, d.year, p.category"
+    }
+]

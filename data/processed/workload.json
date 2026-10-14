@@ -1,0 +1,60 @@
+{
+    "aggregation_heavy": [
+        {
+            "query_id": "Q001",
+            "type": "aggregation",
+            "sql": "\n                SELECT\n                    d.year,\n                    d.month,\n                    SUM(f.total_amount) AS total_sales\n                FROM fact_sales f\n                JOIN dim_date d\n                    ON f.date_id = d.date_id\n                GROUP BY d.year, d.month\n            "
+        },
+        {
+            "query_id": "Q002",
+            "type": "aggregation",
+            "sql": "\n                SELECT\n                    p.category,\n                    SUM(f.total_amount) AS revenue\n                FROM fact_sales f\n                JOIN dim_product p\n                    ON f.product_id = p.product_id\n                GROUP BY p.category\n            "
+        },
+        {
+            "query_id": "Q003",
+            "type": "aggregation",
+            "sql": "\n                SELECT\n                    c.region,\n                    SUM(f.total_amount) AS revenue\n                FROM fact_sales f\n                JOIN dim_customer c\n                    ON f.customer_id = c.customer_id\n                GROUP BY c.region\n            "
+        }
+    ],
+    "join_heavy": [
+        {
+            "query_id": "Q004",
+            "type": "join",
+            "sql": "\n                SELECT\n                    c.region,\n                    p.category,\n                    d.year,\n                    SUM(f.total_amount) AS revenue\n                FROM fact_sales f\n                JOIN dim_customer c\n                    ON f.customer_id = c.customer_id\n                JOIN dim_product p\n                    ON f.product_id = p.product_id\n                JOIN dim_date d\n                    ON f.date_id = d.date_id\n                GROUP BY\n                    c.region,\n                    p.category,\n                    d.year\n            "
+        },
+        {
+            "query_id": "Q005",
+            "type": "join",
+            "sql": "\n                SELECT\n                    c.segment,\n                    p.category,\n                    SUM(f.quantity) AS units\n                FROM fact_sales f\n                JOIN dim_customer c\n                    ON f.customer_id = c.customer_id\n                JOIN dim_product p\n                    ON f.product_id = p.product_id\n                GROUP BY\n                    c.segment,\n                    p.category\n            "
+        }
+    ],
+    "selective": [
+        {
+            "query_id": "Q006",
+            "type": "selective",
+            "sql": "\n                SELECT *\n                FROM fact_sales\n                WHERE customer_id = 10\n            "
+        },
+        {
+            "query_id": "Q007",
+            "type": "selective",
+            "sql": "\n                SELECT *\n                FROM fact_sales\n                WHERE product_id = 25\n            "
+        },
+        {
+            "query_id": "Q008",
+            "type": "selective",
+            "sql": "\n                SELECT *\n                FROM fact_sales\n                WHERE date_id BETWEEN 1 AND 30\n            "
+        }
+    ],
+    "mixed": [
+        {
+            "query_id": "Q009",
+            "type": "mixed",
+            "sql": "\n                SELECT\n                    c.region,\n                    p.category,\n                    AVG(f.total_amount) AS avg_sale\n                FROM fact_sales f\n                JOIN dim_customer c\n                    ON f.customer_id = c.customer_id\n                JOIN dim_product p\n                    ON f.product_id = p.product_id\n                WHERE f.quantity >= 5\n                GROUP BY\n                    c.region,\n                    p.category\n            "
+        },
+        {
+            "query_id": "Q010",
+            "type": "mixed",
+            "sql": "\n                SELECT\n                    d.quarter,\n                    c.segment,\n                    SUM(f.total_amount) AS revenue\n                FROM fact_sales f\n                JOIN dim_date d\n                    ON f.date_id = d.date_id\n                JOIN dim_customer c\n                    ON f.customer_id = c.customer_id\n                WHERE f.discount > 0.10\n                GROUP BY\n                    d.quarter,\n                    c.segment\n            "
+        }
+    ]
+}

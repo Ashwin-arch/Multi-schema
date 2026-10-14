@@ -1,0 +1,1340 @@
+[
+  {
+    "query_id": "Q001",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q002",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Electronics'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q003",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Electronics'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q004",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.segment, d.quarter, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'North'\nGROUP BY c.segment, d.quarter\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q005",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025"
+  },
+  {
+    "query_id": "Q006",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, c.region, p.category, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Furniture'\nGROUP BY d.year, c.region, p.category\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q007",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.product_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q008",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, d.quarter, c.region, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND p.category = 'Furniture'\nGROUP BY d.year, d.quarter, c.region\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q009",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.year, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.year\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q010",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025"
+  },
+  {
+    "query_id": "Q011",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q012",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Consumer'\n  AND p.category = 'Office'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q013",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Corporate'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q014",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND c.segment = 'Corporate'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q015",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, c.segment, d.year, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\nGROUP BY c.region, c.segment, d.year\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q016",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q017",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, d.year, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY d.quarter, d.year\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q018",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Furniture'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q019",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, d.quarter, c.segment, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.category, d.quarter, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q020",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_customer_returns",
+    "sql": "SELECT c.customer_id, c.region, c.segment,\n       COUNT(DISTINCT fs.sale_id) AS sales_count,\n       SUM(fs.total_amount) AS total_sales,\n       COUNT(fr.return_id) AS returns_count,\n       SUM(fr.refund_amount) AS total_refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.customer_id, c.region, c.segment\nHAVING COUNT(DISTINCT fs.sale_id) > 5\nORDER BY return_rate DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q021",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q022",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.product_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q023",
+    "workload": "selective",
+    "query_type": "selective_region",
+    "sql": "SELECT fs.sale_id, fs.customer_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nWHERE c.region = 'North'\nORDER BY fs.total_amount DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q024",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, c.region, c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY d.year, c.region, c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q025",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region, c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q026",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q027",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Furniture'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q028",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025"
+  },
+  {
+    "query_id": "Q029",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 24\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q030",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q031",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, d.year, p.category, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025 AND c.region = 'South' AND p.category = 'Office'\nGROUP BY d.quarter, d.year, p.category\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q032",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Consumer'\n  AND p.category = 'Office'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q033",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 476\nORDER BY fs.total_amount DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q034",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, d.year, c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'North'\nGROUP BY c.region, d.year, c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q035",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_return_rate_region",
+    "sql": "SELECT c.region,\n       COUNT(DISTINCT fs.sale_id) AS total_sales,\n       COUNT(fr.return_id) AS total_returns,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.region\nORDER BY return_rate DESC"
+  },
+  {
+    "query_id": "Q036",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, COUNT(fs.sale_id) AS sales_metric, AVG(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q037",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_monthly_trend",
+    "sql": "SELECT d.month,\n       SUM(fs.total_amount) AS monthly_sales,\n       SUM(fr.refund_amount) AS monthly_returns,\n       SUM(fr.refund_amount) * 1.0 / SUM(fs.total_amount) AS return_ratio\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY d.month\nORDER BY d.month"
+  },
+  {
+    "query_id": "Q038",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 844\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q039",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q040",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.category, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q041",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 707\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q042",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, d.year, c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.category, d.year, c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q043",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_customer_returns",
+    "sql": "SELECT c.customer_id, c.region, c.segment,\n       COUNT(DISTINCT fs.sale_id) AS sales_count,\n       SUM(fs.total_amount) AS total_sales,\n       COUNT(fr.return_id) AS returns_count,\n       SUM(fr.refund_amount) AS total_refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.customer_id, c.region, c.segment\nHAVING COUNT(DISTINCT fs.sale_id) > 5\nORDER BY return_rate DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q044",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, d.year, c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West' AND p.category = 'Electronics'\nGROUP BY d.quarter, d.year, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q045",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, SUM(fs.total_amount) AS sales_metric, COUNT(fr.return_id) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q046",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_customer_returns",
+    "sql": "SELECT c.customer_id, c.region, c.segment,\n       COUNT(DISTINCT fs.sale_id) AS sales_count,\n       SUM(fs.total_amount) AS total_sales,\n       COUNT(fr.return_id) AS returns_count,\n       SUM(fr.refund_amount) AS total_refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.customer_id, c.region, c.segment\nHAVING COUNT(DISTINCT fs.sale_id) > 5\nORDER BY return_rate DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q047",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q048",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND c.segment = 'Corporate'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q049",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 311\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q050",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_customer_returns",
+    "sql": "SELECT c.customer_id, c.region, c.segment,\n       COUNT(DISTINCT fs.sale_id) AS sales_count,\n       SUM(fs.total_amount) AS total_sales,\n       COUNT(fr.return_id) AS returns_count,\n       SUM(fr.refund_amount) AS total_refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.customer_id, c.region, c.segment\nHAVING COUNT(DISTINCT fs.sale_id) > 5\nORDER BY return_rate DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q051",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.product_name, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q052",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q053",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.category, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q054",
+    "workload": "selective",
+    "query_type": "selective_region",
+    "sql": "SELECT fs.sale_id, fs.customer_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nWHERE c.region = 'East'\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q055",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, d.year, d.quarter, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.category, d.year, d.quarter\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q056",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT c.segment, d.quarter, d.year, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.segment, d.quarter, d.year\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q057",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, c.region, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE 1=1\nGROUP BY d.quarter, c.region\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q058",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q059",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.month, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.month\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q060",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q061",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q062",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.category, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q063",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q064",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_product_returns",
+    "sql": "SELECT p.product_name, p.category,\n       COUNT(DISTINCT fs.sale_id) AS units_sold,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS units_returned,\n       SUM(fr.refund_amount) AS refund_amount,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.product_name, p.category\nHAVING COUNT(DISTINCT fs.sale_id) > 10\nORDER BY return_rate DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q065",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT d.year, p.category, c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.year, p.category, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q066",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 991\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q067",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Furniture'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q068",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024"
+  },
+  {
+    "query_id": "Q069",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025"
+  },
+  {
+    "query_id": "Q070",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Furniture'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q071",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, d.quarter, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'West' AND p.category = 'Furniture'\nGROUP BY d.year, d.quarter\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q072",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q073",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Furniture'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q074",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q075",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, c.region, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'East' AND p.category = 'Electronics'\nGROUP BY d.year, c.region\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q076",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND p.category = 'Electronics'\nGROUP BY d.quarter, c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q077",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_product_returns",
+    "sql": "SELECT p.product_name, p.category,\n       COUNT(DISTINCT fs.sale_id) AS units_sold,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS units_returned,\n       SUM(fr.refund_amount) AS refund_amount,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.product_name, p.category\nHAVING COUNT(DISTINCT fs.sale_id) > 10\nORDER BY return_rate DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q078",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q079",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 376\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q080",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, AVG(fs.total_amount) AS sales_metric, SUM(fr.returned_quantity) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q081",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, c.segment, c.region, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.category, c.segment, c.region\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q082",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 263\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q083",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND c.segment = 'Home Office'\n  AND p.category = 'Office'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q084",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, d.quarter, c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.region, d.quarter, c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q085",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Home Office'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q086",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Home Office'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q087",
+    "workload": "selective",
+    "query_type": "selective_region",
+    "sql": "SELECT fs.sale_id, fs.customer_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nWHERE c.region = 'East'\nORDER BY fs.total_amount DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q088",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, d.year, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025 AND c.region = 'East'\nGROUP BY d.quarter, d.year\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q089",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.quarter, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.quarter\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q090",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q091",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_deep",
+    "sql": "SELECT c.region, p.category,\n       COUNT(DISTINCT fs.sale_id) AS sales,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS returns,\n       SUM(fr.refund_amount) AS refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate,\n       SUM(fr.refund_amount) * 1.0 / SUM(fs.total_amount) AS refund_ratio\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.region, p.category\nORDER BY return_rate DESC"
+  },
+  {
+    "query_id": "Q092",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, COUNT(fs.sale_id) AS sales_metric, COUNT(fr.return_id) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q093",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_deep",
+    "sql": "SELECT c.region, p.category,\n       COUNT(DISTINCT fs.sale_id) AS sales,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS returns,\n       SUM(fr.refund_amount) AS refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate,\n       SUM(fr.refund_amount) * 1.0 / SUM(fs.total_amount) AS refund_ratio\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.region, p.category\nORDER BY return_rate DESC"
+  },
+  {
+    "query_id": "Q094",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q095",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT d.year, d.quarter, p.category, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.year, d.quarter, p.category\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q096",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, p.category, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'North' AND p.category = 'Electronics'\nGROUP BY c.region, p.category\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q097",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 13\nORDER BY fs.total_amount DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q098",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Electronics'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q099",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.segment, d.year, p.category, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\nGROUP BY c.segment, d.year, p.category\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q100",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT p.category, c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'North'\nGROUP BY p.category, c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q101",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.segment, d.year, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\nGROUP BY c.segment, d.year\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q102",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_product_returns",
+    "sql": "SELECT p.product_name, p.category,\n       COUNT(DISTINCT fs.sale_id) AS units_sold,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS units_returned,\n       SUM(fr.refund_amount) AS refund_amount,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.product_name, p.category\nHAVING COUNT(DISTINCT fs.sale_id) > 10\nORDER BY return_rate DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q103",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, p.category, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'South' AND p.category = 'Office'\nGROUP BY c.region, p.category\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q104",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.month, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.month\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q105",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q106",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND p.category = 'Office'\nGROUP BY d.quarter, c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q107",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q108",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q109",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 879\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q110",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.product_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q111",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q112",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, d.quarter, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'South'\nGROUP BY d.year, d.quarter\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q113",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.segment, c.region, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South' AND p.category = 'Electronics'\nGROUP BY c.segment, c.region\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q114",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, d.quarter, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'West'\nGROUP BY d.year, d.quarter\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q115",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Corporate'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q116",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Corporate'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q117",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.quarter, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.quarter\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q118",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Corporate'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q119",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.segment, p.category, d.year, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.segment, p.category, d.year\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q120",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, d.year, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025 AND c.region = 'North'\nGROUP BY d.quarter, d.year\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q121",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 38\nORDER BY fs.total_amount DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q122",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT c.segment, c.region, d.quarter, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.segment, c.region, d.quarter\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q123",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_product_returns",
+    "sql": "SELECT p.product_name, p.category,\n       COUNT(DISTINCT fs.sale_id) AS units_sold,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS units_returned,\n       SUM(fr.refund_amount) AS refund_amount,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.product_name, p.category\nHAVING COUNT(DISTINCT fs.sale_id) > 10\nORDER BY return_rate DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q124",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q125",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, MAX(fs.total_amount) AS sales_metric, COUNT(fr.return_id) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q126",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Home Office'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q127",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Consumer'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q128",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_customer_returns",
+    "sql": "SELECT c.customer_id, c.region, c.segment,\n       COUNT(DISTINCT fs.sale_id) AS sales_count,\n       SUM(fs.total_amount) AS total_sales,\n       COUNT(fr.return_id) AS returns_count,\n       SUM(fr.refund_amount) AS total_refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.customer_id, c.region, c.segment\nHAVING COUNT(DISTINCT fs.sale_id) > 5\nORDER BY return_rate DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q129",
+    "workload": "selective",
+    "query_type": "selective_region",
+    "sql": "SELECT fs.sale_id, fs.customer_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nWHERE c.region = 'East'\nORDER BY fs.total_amount DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q130",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, MIN(fs.total_amount) AS sales_metric, SUM(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q131",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.month, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.month\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q132",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 51\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q133",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Office'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q134",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025"
+  },
+  {
+    "query_id": "Q135",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_product_returns",
+    "sql": "SELECT p.product_name, p.category,\n       COUNT(DISTINCT fs.sale_id) AS units_sold,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS units_returned,\n       SUM(fr.refund_amount) AS refund_amount,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.product_name, p.category\nHAVING COUNT(DISTINCT fs.sale_id) > 10\nORDER BY return_rate DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q136",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Electronics'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q137",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Electronics'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q138",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.month, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.month\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q139",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q140",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, MAX(fs.total_amount) AS sales_metric, AVG(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q141",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND c.segment = 'Consumer'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q142",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT p.category, c.region, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.category, c.region\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q143",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, d.quarter, d.year, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'West'\nGROUP BY c.region, d.quarter, d.year\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q144",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT c.region, p.category, c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.region, p.category, c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q145",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE 1=1\nGROUP BY c.region, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q146",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, p.category, c.region, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE 1=1\nGROUP BY d.quarter, p.category, c.region\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q147",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT d.quarter, c.region, d.year, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.quarter, c.region, d.year\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q148",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT d.quarter, d.year, c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.quarter, d.year, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q149",
+    "workload": "selective",
+    "query_type": "selective_region",
+    "sql": "SELECT fs.sale_id, fs.customer_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nWHERE c.region = 'North'\nORDER BY fs.total_amount DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q150",
+    "workload": "star_oriented",
+    "query_type": "star_product",
+    "sql": "SELECT p.product_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q151",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, COUNT(fs.sale_id) AS sales_metric, SUM(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q152",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, SUM(fs.total_amount) AS sales_metric, SUM(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q153",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_product_returns",
+    "sql": "SELECT p.product_name, p.category,\n       COUNT(DISTINCT fs.sale_id) AS units_sold,\n       SUM(fs.total_amount) AS revenue,\n       COUNT(fr.return_id) AS units_returned,\n       SUM(fr.refund_amount) AS refund_amount,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.product_name, p.category\nHAVING COUNT(DISTINCT fs.sale_id) > 10\nORDER BY return_rate DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q154",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.year, c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.year, c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q155",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q156",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 11\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q157",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT d.year, c.segment, c.region, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.year, c.segment, c.region\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q158",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_customer_returns",
+    "sql": "SELECT c.customer_id, c.region, c.segment,\n       COUNT(DISTINCT fs.sale_id) AS sales_count,\n       SUM(fs.total_amount) AS total_sales,\n       COUNT(fr.return_id) AS returns_count,\n       SUM(fr.refund_amount) AS total_refunds,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY c.customer_id, c.region, c.segment\nHAVING COUNT(DISTINCT fs.sale_id) > 5\nORDER BY return_rate DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q159",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2025\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q160",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT c.region, d.year, d.quarter, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.region, d.year, d.quarter\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q161",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q162",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Consumer'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q163",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Furniture'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q164",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q165",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region, c.segment\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q166",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Consumer'\n  AND p.category = 'Electronics'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q167",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 284\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q168",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.month, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.month\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q169",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, AVG(fs.total_amount) AS sales_metric, AVG(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q170",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q171",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT d.year, d.quarter, p.category, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY d.year, d.quarter, p.category\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q172",
+    "workload": "selective",
+    "query_type": "selective_cust",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.product_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.customer_id = 200\nORDER BY fs.total_amount DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q173",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Consumer'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q174",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.quarter, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.quarter\nORDER BY metric DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q175",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q176",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, d.quarter, d.year, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'West'\nGROUP BY c.region, d.quarter, d.year\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q177",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT c.region, p.category, d.year, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.region, p.category, d.year\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q178",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q179",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Corporate'\n  AND p.category = 'Office'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q180",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q181",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 44\nORDER BY fs.total_amount DESC\nLIMIT 5"
+  },
+  {
+    "query_id": "Q182",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q183",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q184",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, MIN(fs.total_amount) AS sales_metric, COUNT(fr.return_id) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q185",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Consumer'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q186",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.quarter, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.quarter\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q187",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Consumer'\n  AND p.category = 'Office'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q188",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND c.segment = 'Home Office'\n  AND p.category = 'Office'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q189",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, SUM(fs.total_amount) AS sales_metric, SUM(fr.returned_quantity) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q190",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 24\nORDER BY fs.total_amount DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q191",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, c.region, d.year, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.category, c.region, d.year\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q192",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT p.category, c.region, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025 AND c.region = 'West'\nGROUP BY p.category, c.region\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q193",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Corporate'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q194",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_return_rate_region",
+    "sql": "SELECT c.region,\n       COUNT(DISTINCT fs.sale_id) AS total_sales,\n       COUNT(fr.return_id) AS total_returns,\n       COUNT(fr.return_id) * 1.0 / COUNT(DISTINCT fs.sale_id) AS return_rate\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.region\nORDER BY return_rate DESC"
+  },
+  {
+    "query_id": "Q195",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 13\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q196",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 25\nORDER BY fs.total_amount DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q197",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q198",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, c.region, c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024\nGROUP BY p.category, c.region, c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q199",
+    "workload": "selective",
+    "query_type": "selective_prod",
+    "sql": "SELECT fs.sale_id, fs.date_id, fs.customer_id, fs.total_amount\nFROM fact_sales fs\nWHERE fs.product_id = 5\nORDER BY fs.total_amount DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q200",
+    "workload": "star_oriented",
+    "query_type": "star_customer",
+    "sql": "SELECT c.region, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY c.region\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q201",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, AVG(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Corporate'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q202",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, SUM(fs.total_amount) AS sales_metric, AVG(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q203",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, COUNT(fs.sale_id) AS sales_metric, SUM(fr.returned_quantity) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  },
+  {
+    "query_id": "Q204",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT d.quarter, p.category, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\nGROUP BY d.quarter, p.category\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q205",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024"
+  },
+  {
+    "query_id": "Q206",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Home Office'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q207",
+    "workload": "star_oriented",
+    "query_type": "star_large",
+    "sql": "SELECT SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024"
+  },
+  {
+    "query_id": "Q208",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, c.region, c.segment, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.category, c.region, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q209",
+    "workload": "mixed_complex",
+    "query_type": "mixed",
+    "sql": "SELECT c.region, c.segment, MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2024 AND c.region = 'West'\nGROUP BY c.region, c.segment\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q210",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Office'\n  AND d.year = 2024\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q211",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT p.category, c.segment, d.quarter, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY p.category, c.segment, d.quarter\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q212",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_monthly_trend",
+    "sql": "SELECT d.month,\n       SUM(fs.total_amount) AS monthly_sales,\n       SUM(fr.refund_amount) AS monthly_returns,\n       SUM(fr.refund_amount) * 1.0 / SUM(fs.total_amount) AS return_ratio\nFROM fact_sales fs\nLEFT JOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY d.month\nORDER BY d.month"
+  },
+  {
+    "query_id": "Q213",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MIN(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND c.segment = 'Home Office'\n  AND p.category = 'Furniture'\n  AND d.year = 2024"
+  },
+  {
+    "query_id": "Q214",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'North'\n  AND c.segment = 'Consumer'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q215",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_region",
+    "sql": "SELECT c.segment, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND d.year = 2024\nGROUP BY c.segment\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q216",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'East'\n  AND c.segment = 'Home Office'\n  AND d.year = 2025\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 50"
+  },
+  {
+    "query_id": "Q217",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_category",
+    "sql": "SELECT p.product_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE p.category = 'Electronics'\n  AND d.year = 2025\nGROUP BY p.product_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q218",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.quarter, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.quarter\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q219",
+    "workload": "multi_dimensional",
+    "query_type": "multi_dim",
+    "sql": "SELECT c.region, d.quarter, p.category, SUM(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE d.year = 2025\nGROUP BY c.region, d.quarter, p.category\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q220",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_segment",
+    "sql": "SELECT c.customer_name, MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'West'\n  AND c.segment = 'Home Office'\n  AND d.year = 2024\nGROUP BY c.customer_name\nORDER BY metric DESC\nLIMIT 20"
+  },
+  {
+    "query_id": "Q221",
+    "workload": "star_oriented",
+    "query_type": "star_wide",
+    "sql": "SELECT d.quarter, COUNT(fs.sale_id) AS metric\nFROM fact_sales fs\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY d.quarter\nORDER BY metric DESC\nLIMIT 10"
+  },
+  {
+    "query_id": "Q222",
+    "workload": "snowflake_oriented",
+    "query_type": "snowflake_normalized",
+    "sql": "SELECT MAX(fs.total_amount) AS metric\nFROM fact_sales fs\nJOIN dim_customer c ON fs.customer_id = c.customer_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nWHERE c.region = 'South'\n  AND c.segment = 'Consumer'\n  AND p.category = 'Furniture'\n  AND d.year = 2025"
+  },
+  {
+    "query_id": "Q223",
+    "workload": "fact_constellation_oriented",
+    "query_type": "fc_sales_returns_cat",
+    "sql": "SELECT p.category, MIN(fs.total_amount) AS sales_metric, AVG(fr.refund_amount) AS returns_metric\nFROM fact_sales fs\nJOIN fact_returns fr ON fs.sale_id = fr.return_id\nJOIN dim_product p ON fs.product_id = p.product_id\nJOIN dim_date d ON fs.date_id = d.date_id\nGROUP BY p.category\nORDER BY sales_metric DESC"
+  }
+]

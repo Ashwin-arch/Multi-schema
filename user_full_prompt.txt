@@ -1,0 +1,618 @@
+<USER_REQUEST>
+You are an expert in data warehousing, database benchmarking, machine learning, Python, DuckDB, and research experimentation.
+
+I am developing a conference-level research prototype titled:
+
+"Adaptive Multi-Schema Data Warehouse: An ML-Based Query-Aware Schema Selection Framework"
+
+I have uploaded the existing project ZIP. Treat the uploaded project as the existing baseline implementation. DO NOT discard or rewrite the existing working implementation unnecessarily.
+
+==================================================
+RESEARCH OBJECTIVE
+==================================================
+
+The system contains three physically materialized warehouse schemas:
+
+1. Star Schema
+2. Snowflake Schema
+3. Fact Constellation Schema
+
+The research objective is to investigate whether a query-aware adaptive controller can select an appropriate schema for an incoming analytical query based on query characteristics and query-plan information.
+
+The system must NOT claim that one schema is globally superior.
+
+The important research question is:
+
+"Can query structure and pre-execution query-plan characteristics be used to select among multiple warehouse schemas with lower execution cost than a fixed-schema strategy?"
+
+==================================================
+EXISTING PROJECT
+==================================================
+
+First inspect the uploaded project completely.
+
+Preserve and understand the existing:
+
+- data generation
+- Star schema implementation
+- Snowflake schema implementation
+- Fact Constellation implementation
+- workload generation
+- V3 benchmark
+- V5 query-plan extraction
+- V5 cost-aware model
+- V6 relative-cost model
+- leave-one-workload-out evaluation
+- repeatability benchmark
+
+Existing workload:
+
+- 600 unique SQL queries
+- workload categories:
+  - aggregation
+  - filtered_aggregation
+  - join_heavy
+  - mixed
+  - selective
+
+Existing data:
+
+- customers: 1,000
+- products: 60
+- dates: 365
+- sales: 100,000
+
+Existing benchmark has already demonstrated that at 100K rows the execution-time differences between schemas are very small.
+
+Therefore, DO NOT immediately create another ML model.
+
+==================================================
+NEW OBJECTIVE
+==================================================
+
+Extend the project into a reproducible scalability experiment.
+
+The primary experiment should investigate whether schema-dependent performance differences become more measurable as warehouse size increases.
+
+Target dataset sizes:
+
+100K
+500K
+1M
+5M
+10M
+
+However, the system must first check available Colab RAM, disk space, and execution constraints.
+
+If 10M is computationally excessive, automatically stop at the largest feasible scale and document the limitation.
+
+Do NOT crash the runtime by blindly generating all datasets.
+
+==================================================
+COLAB REQUIREMENTS
+==================================================
+
+The complete project must run in Google Colab.
+
+Create a clean notebook-oriented workflow.
+
+The notebook should:
+
+1. Detect Colab environment.
+2. Install dependencies.
+3. Extract/load the project.
+4. Create required directories.
+5. Check available RAM and disk.
+6. Generate deterministic datasets.
+7. Build all three schemas.
+8. Generate/validate workloads.
+9. Run benchmarks.
+10. Run adaptive model evaluation.
+11. Save all results.
+12. Generate publication-quality figures and tables.
+
+Use:
+
+- Python
+- DuckDB
+- pandas
+- NumPy
+- scikit-learn
+- matplotlib
+
+Avoid unnecessary dependencies.
+
+==================================================
+DATA GENERATION
+==================================================
+
+Create a scalable deterministic data generator.
+
+The generated data must preserve the same logical schema and distributions as the existing 100K experiment.
+
+Use a fixed random seed.
+
+Support:
+
+100K
+500K
+1M
+5M
+10M
+
+The generator should allow:
+
+python generate_data.py --rows 1000000
+
+or equivalent programmatic execution.
+
+Do not regenerate dimension tables unnecessarily.
+
+The fact table should scale while maintaining referential integrity with:
+
+- customer
+- product
+- date
+
+The generated data must be deterministic so that experiments can be reproduced.
+
+==================================================
+DATABASE SCHEMAS
+==================================================
+
+For each dataset size construct:
+
+A. Star Schema
+
+fact_sales
+dim_customer
+dim_product
+dim_date
+
+B. Snowflake Schema
+
+fact_sales
+dim_customer
+dim_region
+dim_segment
+dim_product
+dim_category
+dim_date
+
+including the required compatibility views.
+
+C. Fact Constellation
+
+fact_sales
+fact_returns
+dim_customer
+dim_product
+dim_date
+
+Maintain the existing logical semantics.
+
+Important:
+
+The fact measure is:
+
+total_amount
+
+NOT sales_amount.
+
+Make the SQL adapter robust so all generated queries work correctly across schemas.
+
+==================================================
+WORKLOAD
+==================================================
+
+Use the existing 600-query workload wherever possible.
+
+Do not randomly invent a completely different workload unless required.
+
+The workload must cover:
+
+- aggregation
+- filtered aggregation
+- join-heavy
+- mixed
+- selective
+
+Validate every query against all three schemas before benchmarking.
+
+Report:
+
+total queries
+successful queries
+failed queries
+
+Expected:
+
+600 × 3 successful executions per benchmark configuration.
+
+==================================================
+BENCHMARK DESIGN
+==================================================
+
+For each feasible dataset size:
+
+Run:
+
+Star
+Snowflake
+Fact Constellation
+
+for the same query workload.
+
+Use:
+
+- warm-up executions
+- multiple repetitions
+- randomized schema execution order
+- high-resolution timing
+- deterministic query order where appropriate
+
+Do not include warm-up executions in final timing.
+
+Record:
+
+query_id
+dataset_size
+workload
+schema
+repetition
+latency_ms
+success/failure
+
+Save:
+
+results/scale_raw_results.csv
+
+Also generate query-level summaries:
+
+results/scale_query_summary.csv
+
+and dataset-level summaries:
+
+results/scale_summary.csv
+
+==================================================
+ORACLE ANALYSIS
+==================================================
+
+For each query and dataset size calculate the oracle schema:
+
+oracle_schema = schema with minimum measured mean latency
+
+Calculate:
+
+oracle latency
+fixed Star latency
+fixed Snowflake latency
+fixed Fact Constellation latency
+
+and:
+
+Oracle improvement over Star
+Oracle improvement over best fixed schema
+schema-selection distribution
+
+IMPORTANT:
+
+Oracle is an offline upper-bound analysis.
+
+Do not describe Oracle as a deployable system.
+
+==================================================
+ADAPTIVE MODEL
+==================================================
+
+Reuse the existing V6 relative-cost architecture where appropriate.
+
+Do not assume that the V6 model automatically works better at every scale.
+
+Evaluate the existing adaptive controller at each dataset size.
+
+The adaptive controller should use only information available before actual query execution.
+
+Candidate inputs may include:
+
+- SQL semantic features
+- query type
+- workload type
+- join count
+- aggregation count
+- predicate count
+- group-by count
+- tables used
+- filter characteristics
+- query-plan features
+- cross-schema plan differences
+- estimated cardinality
+- operator counts
+- plan depth
+
+Do NOT use actual execution latency as an input feature.
+
+Actual latency may only be used as the target/evaluation metric.
+
+Explicitly distinguish:
+
+prediction-time information
+
+from:
+
+post-execution information.
+
+==================================================
+IMPORTANT EXPERIMENTAL RULE
+==================================================
+
+The model must not be trained using the test queries' measured execution latency.
+
+Use appropriate train/test separation.
+
+Prefer workload-level or query-level generalization experiments.
+
+If training across dataset sizes is investigated, explicitly document the train/test configuration.
+
+Avoid leakage from:
+
+- query_id
+- query_length when it merely encodes generator templates
+- actual latency
+- oracle schema
+- benchmark results
+
+==================================================
+STATISTICAL ANALYSIS
+==================================================
+
+For each scale calculate:
+
+mean latency
+median latency
+standard deviation
+95% confidence interval
+
+Compare:
+
+Adaptive vs Star
+Adaptive vs Best Fixed
+Oracle vs Star
+Adaptive gap to Oracle
+
+Use bootstrap confidence intervals where appropriate.
+
+Do not claim statistical significance unless the confidence interval/test supports it.
+
+Because previous 100K experiments showed very small differences, explicitly investigate whether increasing dataset size increases schema-dependent performance differences.
+
+==================================================
+SCALABILITY ANALYSIS
+==================================================
+
+Generate plots:
+
+1. Mean latency vs dataset size
+   - Star
+   - Snowflake
+   - Fact Constellation
+
+2. Oracle improvement vs dataset size
+
+3. Adaptive improvement vs dataset size
+
+4. Adaptive gap to Oracle vs dataset size
+
+5. Schema-selection distribution vs dataset size
+
+6. Latency variability vs dataset size
+
+7. Per-workload latency vs dataset size
+
+Use publication-quality matplotlib figures.
+
+Save figures to:
+
+results/figures/
+
+Use clear axis labels, legends, titles, and units.
+
+Do not use misleading dual axes unless absolutely necessary.
+
+==================================================
+EFFICIENCY / RESOURCE MEASUREMENT
+==================================================
+
+Also record:
+
+dataset generation time
+database construction time
+database size
+benchmark execution time
+peak/approximate memory where feasible
+
+Save:
+
+results/resource_usage.csv
+
+This is important for discussing scalability.
+
+==================================================
+REPRODUCIBILITY
+==================================================
+
+Create:
+
+README_COLAB.md
+
+containing:
+
+- research objective
+- environment
+- installation
+- dataset generation
+- schema construction
+- workload generation
+- benchmark commands
+- model evaluation
+- output files
+- reproducibility instructions
+- limitations
+
+All random operations must use explicit seeds.
+
+==================================================
+FAIL-SAFE DESIGN
+==================================================
+
+Because Google Colab has finite RAM, storage, and runtime:
+
+Before each dataset size:
+
+1. Estimate required storage.
+2. Check available disk.
+3. Check available memory.
+4. Warn if insufficient.
+5. Skip the scale if unsafe rather than crashing.
+
+The experiment should still produce valid results if only:
+
+100K
+500K
+1M
+
+are feasible.
+
+Do not fabricate results for skipped scales.
+
+==================================================
+RESEARCH INTEGRITY
+==================================================
+
+Do not manufacture improvements.
+
+If adaptive performance is:
+
+- slower than Star
+- equal to Star
+- statistically indistinguishable
+- worse than best fixed schema
+
+report that honestly.
+
+If scalability demonstrates stronger schema-selection opportunities, document them.
+
+If it does not, state that the current dataset/workload does not produce sufficient schema-dependent performance variation.
+
+Clearly distinguish:
+
+1. measured result
+2. model prediction
+3. oracle upper bound
+4. interpretation
+
+==================================================
+FINAL OUTPUT
+==================================================
+
+Produce a clean research experiment containing:
+
+Code:
+src/
+
+Data:
+data/
+
+Results:
+results/
+
+Figures:
+results/figures/
+
+Documentation:
+README_COLAB.md
+
+The final experiment should make it possible to answer:
+
+"Does increasing warehouse scale make adaptive multi-schema selection more useful?"
+
+Also generate a final summary table containing:
+
+Dataset Size
+Queries
+Star Mean
+Snowflake Mean
+Fact Constellation Mean
+Best Fixed Mean
+Adaptive Mean
+Oracle Mean
+Adaptive vs Star %
+Adaptive vs Best Fixed %
+Oracle vs Star %
+Adaptive Gap to Oracle %
+Oracle Match Rate %
+
+==================================================
+DEVELOPMENT PROCESS
+==================================================
+
+Follow this order:
+
+PHASE 1
+Inspect the uploaded project and understand the existing implementation.
+
+PHASE 2
+Make the project Colab-compatible without destroying existing functionality.
+
+PHASE 3
+Run and validate the existing 100K experiment.
+
+PHASE 4
+Run 500K.
+
+PHASE 5
+Run 1M.
+
+PHASE 6
+Only if resources permit, run 5M.
+
+PHASE 7
+Only if resources permit, run 10M.
+
+PHASE 8
+Perform scalability analysis.
+
+PHASE 9
+Generate figures, tables, and research-ready summaries.
+
+Do not skip validation between phases.
+
+At every phase report:
+
+- what was changed
+- exact files modified
+- exact commands/cells to run
+- expected output
+- actual result
+- any errors
+- whether the experiment is safe to continue
+
+Do not rewrite working code merely for stylistic reasons.
+
+Preserve existing V3/V5/V6 results and scripts as historical experiment versions.
+
+Create new files with clear version names such as:
+
+*_v7.py
+
+rather than silently overwriting V3/V5/V6.
+
+The final implementation must be reproducible, scientifically defensible, and suitable as the experimental foundation for a conference research paper.I completed most of them please complete it which is efficient compared to current technologies
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-02T18:56:08+05:30.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from None to Gemini 3.8 Flash (High). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>
